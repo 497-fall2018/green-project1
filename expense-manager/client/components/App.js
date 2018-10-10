@@ -12,8 +12,9 @@ export default class App extends React.Component {
 constructor() {
     super();
   this.state = {selectedMonth:'All', selectedYear: 2016, data: [], activeTab:2016,
-  budget:1000};
+  budget:1000, monthsum: 0, display_name: 'none'};
     this.getData = this.getData.bind(this);
+    this.updateInputValue = this.updateInputValue.bind(this);
   }
 componentWillReceiveProps(nextProps) {
     if(nextProps.history.location.search){
@@ -43,10 +44,20 @@ getData(ev, year, month){
         ev.setState({data: response.data});
         ev.setState({selectedYear: parseInt(year)});
         ev.setState({selectedMonth: month});
+        var sum = 0;
+        response.data.map((exp)=>{
+          sum += exp.amount;
+        });
+        ev.setState({monthsum: sum});
       });
 }
+updateInputValue(env) {
+    this.setState({
+      budget: env.target.value
+    });
+    // console.log('budget', this.state.budget)
+  }
 render() {
-  console.log('BUDGET: ', this.state.budget)
     return (
       <div>
         <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect}>
@@ -57,8 +68,10 @@ render() {
           <Tab eventKey={2020} title={<YearTabsRouter year='2020'/>}><MonthTabs year='2020' monthlyActiveTab={this.state.selectedMonth}/></Tab>
         </Tabs>
 
-        <input type='number' placeholder='my budget...' onChange={(e)=>this.setState({budget:e})}/>
-
+        <label>Monthly spent: ${this.state.monthsum} </label>
+        <br/>
+        <input type='number' placeholder='my budget...' onChange={this.updateInputValue} />
+        <label> Budget: ${this.state.budget} </label>
         <table>
           <thead>
             <tr><th></th><th className='desc-col'>Description</th><th className='button-col'>Amount</th><th className='button-col'>Month</th><th className='button-col'>Year</th><th className='button-col'>Update</th><th className='button-col'>Delete</th></tr>
@@ -73,7 +86,7 @@ render() {
 
           <div style={{padding: '20px 60px'}}>
             <Add selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} />
-            <BudgetGauge budget={this.state.budget}/>
+            <BudgetGauge mybudget={this.state.budget} mymonthsum={this.state.monthsum}/>
           </div>
         </table>
       </div>

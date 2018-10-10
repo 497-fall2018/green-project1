@@ -15,15 +15,18 @@ class BudgetGauge extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      budget: this.props.budget
+      budget: props.mybudget,
+      monthsum: props.mymonthsum
     }
+    console.log("cons: ", props)
   }
 
   getData(){
-    return [["Label", "Value"], ["Budget", this.state.budget]];
+    return [['Label', 'Value'],["Monthsum", this.state.monthsum]];
   }
 
   render() {
+    console.log('BUDGET: ', this.state.monthsum)
     return (
       <div style={{position:'absolute',top: '300px', right:'50px'}}>
         <Chart
