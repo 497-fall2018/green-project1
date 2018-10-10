@@ -7,6 +7,7 @@ import Delete from './Delete';
 import { Tab, Tabs } from 'react-bootstrap';
 import YearTabsRouter from './tabs/yearTabsRouter';
 import MonthTabs from './tabs/monthTabs';
+import BudgetGauge from './BudgetGauge';
 export default class App extends React.Component {
 constructor() {
     super();
@@ -32,7 +33,8 @@ componentDidMount(){
 handleSelect(selectedTab) {
      this.setState({
        activeTab: selectedTab,
-       selectedYear: selectedTab
+       selectedYear: selectedTab,
+       budget:0
      });
   }
 getData(ev, year, month){
@@ -44,6 +46,7 @@ getData(ev, year, month){
       });
 }
 render() {
+  console.log('BUDGET: ', this.state.budget)
     return (
       <div>
         <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect}>
@@ -53,7 +56,9 @@ render() {
           <Tab eventKey={2019} title={<YearTabsRouter year='2019'/>}><MonthTabs year='2019' monthlyActiveTab={this.state.selectedMonth}/></Tab>
           <Tab eventKey={2020} title={<YearTabsRouter year='2020'/>}><MonthTabs year='2020' monthlyActiveTab={this.state.selectedMonth}/></Tab>
         </Tabs>
-        <Add selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} />
+
+        <input type='number' placeholder='my budget...' onChange={(e)=>this.setState({budget:e})}/>
+
         <table>
           <thead>
             <tr><th></th><th className='desc-col'>Description</th><th className='button-col'>Amount</th><th className='button-col'>Month</th><th className='button-col'>Year</th><th className='button-col'>Update</th><th className='button-col'>Delete</th></tr>
@@ -64,8 +69,13 @@ render() {
                 return  <tr><td className='counterCell'></td><td className='desc-col'>{exp.description}</td><td className='button-col'>{exp.amount}</td><td className='button-col'>{exp.month}</td><td className='button-col'>{exp.year}</td><td className='button-col'><Update expense={exp}/></td><td className='button-col'><Delete expense={exp} /></td></tr>
               })
             }
-            </tbody>
-</table>
+          </tbody>
+
+          <div style={{padding: '20px 60px'}}>
+            <Add selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} />
+            <BudgetGauge budget={this.state.budget}/>
+          </div>
+        </table>
       </div>
     );
   }
