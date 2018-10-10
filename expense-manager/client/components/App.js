@@ -11,7 +11,8 @@ import BudgetGauge from './BudgetGauge';
 export default class App extends React.Component {
 constructor() {
     super();
-  this.state = {selectedMonth:'All', selectedYear: 2016, data: [], activeTab:2016};
+  this.state = {selectedMonth:'All', selectedYear: 2016, data: [], activeTab:2016,
+  budget:1000};
     this.getData = this.getData.bind(this);
   }
 componentWillReceiveProps(nextProps) {
@@ -33,8 +34,7 @@ componentDidMount(){
 handleSelect(selectedTab) {
      this.setState({
        activeTab: selectedTab,
-       selectedYear: selectedTab,
-       budget:0
+       selectedYear: selectedTab
      });
   }
 getData(ev, year, month){

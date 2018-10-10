@@ -15,7 +15,7 @@ class BudgetGauge extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      budget: {this.props.budget}
+      budget: this.props.budget
     }
   }
 
