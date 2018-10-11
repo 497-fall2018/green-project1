@@ -22,7 +22,10 @@ class BudgetGauge extends React.Component {
   }
 
   getData(){
-    return [['Label', 'Value'],["Monthsum", this.state.monthsum]];
+    var mymonthsum = this.props.mymonthsum;
+    var mybudget = this.props.mybudget;
+    var ratio = (mymonthsum/mybudget)*100;
+    return [['Label', 'Value'],["Expenses/Budget", ratio]];
   }
 
   render() {
