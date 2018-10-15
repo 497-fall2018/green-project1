@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 class YearTabsRouter extends React.Component {
 constructor(){
   super();
-  this.state={style:{'font-size': '16px'}}
+  this.state={style:{'font-size': '66px', 'font-weight':'bold', 'color':'#2cbca6'}}
  }
  render(){
    return <Link to={{pathname: '/', search: '?month=All&year='+this.props.year }} >

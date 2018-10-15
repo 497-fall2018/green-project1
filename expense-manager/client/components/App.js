@@ -59,7 +59,7 @@ updateInputValue(env) {
   }
 render() {
     return (
-      <div>
+        <div style={{background: '#ffffff'}}>
         <Tabs activeKey={this.state.activeTab} onSelect={this.handleSelect}>
           <Tab eventKey={2016} title={<YearTabsRouter year='2016' />}><MonthTabs year='2016' monthlyActiveTab={this.state.selectedMonth}/></Tab>
           <Tab eventKey={2017} title={<YearTabsRouter year='2017' />}><MonthTabs year='2017' monthlyActiveTab={this.state.selectedMonth}/></Tab>
@@ -68,26 +68,29 @@ render() {
           <Tab eventKey={2020} title={<YearTabsRouter year='2020'/>}><MonthTabs year='2020' monthlyActiveTab={this.state.selectedMonth}/></Tab>
         </Tabs>
 
-        <label>Monthly spent: ${this.state.monthsum} </label>
-        <br/>
-        <input type='number' placeholder='my budget...' onChange={this.updateInputValue} />
-        <label> Budget: ${this.state.budget} </label>
-        <table>
+
+        <center>
+    <BudgetGauge mybudget={this.state.budget} mymonthsum={this.state.monthsum}/>
+    </center>
+    <div class="labels">
+        <label>Spent<br/> ${this.state.monthsum} </label>        <label> Budget<br/>        <input type='number' placeholder='$1000' onChange={this.updateInputValue} />
+</label>
+</div>
+<div><center>
+<Add selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} /></center>
+</div>
+
+        <table style={{background: '#ffffff'}}>
           <thead>
-            <tr><th></th><th className='desc-col'>Description</th><th className='button-col'>Amount</th><th className='button-col'>Month</th><th className='button-col'>Year</th><th className='button-col'>Update</th><th className='button-col'>Delete</th></tr>
+            <tr><th className='desc-col'>Desc</th><th className='button-col money'>$</th><th className='button-col'>Month</th><th className='button-col'></th><th className='button-col'></th></tr>
           </thead>
           <tbody>
             {
               this.state.data.map((exp) => {
-                return  <tr><td className='counterCell'></td><td className='desc-col'>{exp.description}</td><td className='button-col'>{exp.amount}</td><td className='button-col'>{exp.month}</td><td className='button-col'>{exp.year}</td><td className='button-col'><Update expense={exp}/></td><td className='button-col'><Delete expense={exp} /></td></tr>
+        return  <tr><td className='desc-col'>{exp.description}</td><td className='button-col money'>{exp.amount}</td><td className='button-col'>{exp.month} {exp.year}</td><td className='button-col update-col'><Update expense={exp}/></td><td className='button-col'><Delete expense={exp} /></td></tr>
               })
             }
           </tbody>
-
-          <div style={{padding: '20px 60px'}}>
-            <Add selectedMonth={this.state.selectedMonth} selectedYear={this.state.selectedYear} />
-            <BudgetGauge mybudget={this.state.budget} mymonthsum={this.state.monthsum}/>
-          </div>
         </table>
       </div>
     );

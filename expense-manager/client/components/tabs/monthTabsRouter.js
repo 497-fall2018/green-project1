@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class MonthTabsRouter extends React.Component {
  constructor(){
   super();
-  this.state={style:{'font-size': '10px'}}
+  this.state={style:{'font-size': '42px'}}
  }
 render(){
   if(this.props.tabId == 'All'){
@@ -15,7 +15,7 @@ render(){
   }
 else{
    return <Link to={{pathname: '/', search: '?month='+this.props.tabId + '&year='+this.props.year }} >
-     <p style={this.state.style}>{this.props.tabId} {this.props.year}</p>
+     <p style={this.state.style}>{this.props.tabId}</p>
     </Link>
   }
 }

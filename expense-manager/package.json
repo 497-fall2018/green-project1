@@ -19,6 +19,7 @@
     "react-modal": "^3.6.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.4",
+    "webfontloader": "^1.6.28",
     "webpack-cli": "^3.1.2"
   },
   "scripts": {

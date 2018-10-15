@@ -2,8 +2,8 @@ import React from "react";
 import Chart from "react-google-charts";
 
 const options = {
-  width: 1600,
-  height: 480,
+  width: 375,
+  height: 375,
   redFrom: 90,
   redTo: 100,
   yellowFrom: 75,
@@ -18,24 +18,22 @@ class BudgetGauge extends React.Component {
       budget: props.mybudget,
       monthsum: props.mymonthsum
     }
-    console.log("cons: ", props)
   }
 
   getData(){
     var mymonthsum = this.props.mymonthsum;
     var mybudget = this.props.mybudget;
     var ratio = (mymonthsum/mybudget)*100;
-    return [['Label', 'Value'],["Expenses/Budget", ratio]];
+    return [['Label', 'Value'],["", ratio]];
   }
 
   render() {
-    console.log('BUDGET: ', this.state.monthsum)
     return (
-      <div style={{position:'absolute',top: '300px', right:'50px'}}>
+      <div style={{}}>
         <Chart
           chartType="Gauge"
-          width="800px"
-          height="800px"
+          width="375px"
+          height="375px"
           data={this.getData()}
           options={options}
         />
